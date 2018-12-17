@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>透明登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mycss.css"/>
+	</head>
+	<style type="text/css">
+		body{
+			background-image: url(img/icon.png);
+			background-size:100%;
+			background-repeat: no-repeat;
+			font-family: "微软雅黑";
+		}
+		.myBack{
+			background-color: transparent;
+		}
+		img{
+			display: block;
+			margin: 70px auto;
+		}
+		.mui-input-group::before,.mui-input-group::after{
+			background-color: transparent;
+		}
+		.mui-input-group .mui-input-row:after{
+			right: 15px;
+		}
+		.myIcon{
+			margin-left: 10px;
+			color: white;
+		}
+
+		.mui-btn.mui-btn-green.mui-btn-block{
+			margin-top: 10px;
+		}
+		.myinput {
+			float: none !important;
+		}
+		.mytxt{
+			width: auto;
+			color: white;
+			padding-left: 0;
+		}
+		.mybtn{
+			background-color:#19AC18; 
+			border: 0; 
+			margin-top: 30px;
+			color: white;
+		}
+		.mui-input-row input{
+			color: black;
+		} 
+		#logo{
+			border-radius: 100%;
+			width: 30%;
+		}
+		.mui-bar-nav~.mui-content {
+		    padding-top: 0px;
+		}
+		body .mui-bar-nav {
+		    top: 0;
+		    -webkit-box-shadow: 0 0px 0px #fff;
+		    /* box-shadow: 0 1px 6px #ccc; */
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content mui-content-padded myBack">
+			<img src="img/whr.jpg" id="logo"/>
+			<div class="mui-input-group myBack ">
+				<div class="mui-input-row myBack myinput" >
+					<label class="myinput">
+						<span class="mui-icon mui-icon-person myIcon">
+							
+						</span>
+					</label>
+					<input type="text" placeholder="请输入用户名" class="mytxt myinput">
+				</div>
+				<div class="mui-input-row myinput">
+					<label class="myinput">
+						<span class="mui-icon mui-icon-locked myIcon">
+							
+						</span>
+					</label>
+					<input type="password" placeholder="请输入密码" class="mytxt myinput">
+				</div>
+				
+			</div>
+			<button type="button" class="mui-btn mui-btn-block mybtn" style="">登录</button>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

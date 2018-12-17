@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mycss.css" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<script type="text/javascript" charset="utf-8">
+		mui.init({
+				subpages: [{
+					url: 'wechat.html',
+					id: 'wechat',
+					styles: {
+						top: '45px',
+						bottom: '45px'
+					}
+				}],
+				preloadPages: [{
+						url: 'contact.html',
+						id: 'contact',
+						styles: {
+							top: '45px',
+							bottom: '45px'
+
+						}
+					},
+					{
+						url: 'find.html',
+						id: 'find',
+						styles: {
+							top: '45px',
+							bottom: '45px'
+						}
+					},{
+						url: 'me.html',
+						id: 'me',
+						styles: {
+							top: '45px',
+							bottom: '45px'
+						}
+					},{
+						url: 'wechat_inner.html',
+						id: 'wechat_inner',
+						styles: {
+							top: '0px',
+							bottom: '0px'
+						}
+					}
+				]
+			})
+		</script>
+		<style type="text/css">
+			.mui-title {
+				position: relative;
+			}
+			
+			.mui-bar .mui-title {
+				left: 8px;
+			}
+			
+			.myIcon {
+				color: white;
+				display: inline-block;
+				margin-right: 15px;
+			}
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 3px;
+			}
+		</style>
+	
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav nav1">
+			<h3 class="mui-title mui-pull-left">微信</h3>
+			<a href="#popover" class="mui-icon myIcon mui-pull-right mui-popover-bottom" id="sheet">
+				+
+			</a>
+			<span class="mui-icon mui-icon-search mui-pull-right myIcon"></span>
+		</header>
+		<nav class="mui-bar mui-bar-tab " id="nav1">
+			<a class="mui-tab-item mui-active" id='wechat'>
+				<span class="mui-icon mui-icon mui-icon-chat"></span>
+				<span class="mui-tab-label">微信</span>
+			</a>
+			<a class="mui-tab-item" id='contact'>
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">通讯录</span>
+			</a>
+			<a class="mui-tab-item" id='find'>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-find"></span>
+				<span class="mui-tab-label">发现</span>
+			</a>
+			<a class="mui-tab-item" id="me">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+		</nav>
+	</body>
+	<script type="text/javascript">
+			var nowcur = 'wechat';
+			mui("#nav1").on('tap', 'a', function() {
+				if(this.id == nowcur) return ;
+				if(this.id != nowcur){
+					var ov = plus.webview.getWebviewById(nowcur);
+					ov.hide();
+				}
+				var vv = plus.webview.getWebviewById(this.id);
+				vv.show();
+				nowcur = this.id;
+			})
+	</script>
+</html>

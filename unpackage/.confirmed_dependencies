@@ -1,0 +1,20 @@
+{
+  "index.html": {
+    "resources": [
+      "wechat.html"
+    ],
+    "refer": [
+      "contact.html",
+      "find.html",
+      "me.html",
+      "wechat.html",
+      "wechat_inner.html"
+    ]
+  },
+  "wechat.html": {
+    "refer": [
+      "wechat_inner.html"
+    ],
+    "resources": []
+  }
+}
