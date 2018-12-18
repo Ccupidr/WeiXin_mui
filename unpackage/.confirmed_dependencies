@@ -14,7 +14,9 @@
 	"wechat.html": {
 		"refer": [
 			"wechat_inner.html",
-			"me.html"
+			"me.html",
+			"webViewBar.html",
+			"im-chat.html"
 		],
 		"resources": []
 	},
