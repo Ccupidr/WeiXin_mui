@@ -1,20 +1,38 @@
 {
-  "index.html": {
-    "resources": [
-      "wechat.html"
-    ],
-    "refer": [
-      "contact.html",
-      "find.html",
-      "me.html",
-      "wechat.html",
-      "wechat_inner.html"
-    ]
-  },
-  "wechat.html": {
-    "refer": [
-      "wechat_inner.html"
-    ],
-    "resources": []
-  }
+	"index.html": {
+		"resources": [
+			"wechat.html"
+		],
+		"refer": [
+			"contact.html",
+			"find.html",
+			"me.html",
+			"wechat.html",
+			"wechat_inner.html"
+		]
+	},
+	"wechat.html": {
+		"refer": [
+			"wechat_inner.html",
+			"me.html"
+		],
+		"resources": []
+	},
+	"wechat_inner.html": {
+		"refer": [
+			"index.html"
+		],
+		"resources": []
+	},
+	"webViewBar.html": {
+		"resources": [
+			"wechat.html"
+		],
+		"refer": [
+			"contact.html",
+			"find.html",
+			"me.html",
+			"wechat.html"
+		]
+	}
 }

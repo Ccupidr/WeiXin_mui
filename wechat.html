@@ -7,22 +7,18 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 	</head>
-	<style type="text/css">
-		.mui-table-view .mui-media-object {
-			line-height: 35px;
-			max-width: 50px;
-			height: 50px;
-		}
-	</style>
+	<style type="text/css">.mui-table-view .mui-media-object {
+	line-height: 35px;
+	max-width: 50px;
+	height: 50px;
+}</style>
 
 	<body>
 		<script src="js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+		<script type="text/javascript">mui.init()</script>
 		<ul class="mui-table-view">
 			<li class="mui-table-view-cell mui-media" id="inner">
-				<a href="wechat_inner.html">
+				<a href="javascript:;">
 					<img class="mui-media-object mui-pull-left" src="img/cbd.jpg">
 					<p class="mui-pull-right">15:00</p>
 					<div class="mui-media-body">
@@ -53,11 +49,17 @@
 			</li>
 		</ul>
 	</body>
-	<script type="text/javascript">
-		var inner = document.getElementById('inner');
-		inner.addEventListener('tap',function(){
-			mui.openWindow('wechat_inner.html','wechat_inner');
-		})
-	</script>
+	<script type="text/javascript">var inner = document.getElementById('inner');
+inner.addEventListener('tap', function() {
+	console.log("打开窗口！")
+	mui.openWindow({
+		url: 'wechat_inner.html',
+		id: 'wechat_inner',
+		styles: {
+			top: '0px',
+			bottom: '0px'
+		}
+	})
+})</script>
 
 </html>

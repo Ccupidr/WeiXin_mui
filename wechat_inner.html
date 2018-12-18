@@ -293,14 +293,16 @@
 			.cancel {
 				background-color: darkred;
 			}
+
 		</style>
 	</head>
-
-	<body contextmenu="return false;">
-		<header class="mui-bar mui-bar-nav">
+	
+	<body >
+		
+		<!--<header class="mui-bar mui-bar-nav" >
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">chat (聊天窗口)</h1>
-		</header>
+			<h1 class="mui-title">chat </h1>
+		</header>-->
 		<pre id='h'></pre>
 		<script id='msg-template' type="text/template">
 			<% for(var i in record){ var item=record[i]; %>
@@ -327,6 +329,10 @@
 				</div>
 			<% } %>
 		</script>
+		<header class="mui-bar mui-bar-nav" style="position: absolute; top: 0px; z-index: 99999;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">标题</h1>
+		</header>
 		<div class="mui-content">
 			<div id='msg-list'>
 			</div>
@@ -351,9 +357,18 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.imageViewer.js"></script>
 		<script src="js/arttmpl.js"></script>
+		<script src="js/socket.io.js"></script>
+		
 		<script type="text/javascript" charset="utf-8">
 			(function($, doc) {
 				var MIN_SOUND_TIME = 800;
+				//socket 部分
+				var socket = io("192.168.179.1:3000");
+				socket.emit('test',"聽得到嗎");
+				socket.on('test',function(data){
+					alert("收到信息："+data)
+					console.log('收到信息:'+data);
+				})
 				$.init({
 					gestureConfig: {
 						tap: true, //默认为true
@@ -401,6 +416,8 @@
 							//alert("ll");
 						}
 					};
+					
+					//record 信息列表
 					var record = [{
 						sender: 'zs',
 						type: 'text',
@@ -423,6 +440,7 @@
 					ui.h.style.width = ui.boxMsgText.offsetWidth + 'px';
 					//alert(ui.boxMsgText.offsetWidth );
 					var footerPadding = ui.footer.offsetHeight - ui.boxMsgText.offsetHeight;
+					//点击消息事件
 					var msgItemTap = function(msgItem, event) {
 						var msgType = msgItem.getAttribute('msg-type');
 						var msgContent = msgItem.getAttribute('msg-content')
@@ -437,9 +455,12 @@
 							});
 						}
 					};
+					
+					//图片大图预览
 					var imageViewer = new $.ImageViewer('.msg-content-image', {
 						dbl: false
 					});
+					
 					var bindMsgList = function() {
 						//绑定数据:
 						/*tp.bind({
@@ -447,9 +468,11 @@
 							element: 'msg-list',
 							model: record
 						});*/
+						//动态更改 inner 消息页面
 						ui.areaMsgList.innerHTML = template('msg-template', {
 							"record": record
 						});
+						//给每个item绑定事件
 						var msgItems = ui.areaMsgList.querySelectorAll('.msg-item');
 						[].forEach.call(msgItems, function(item, index) {
 							item.addEventListener('tap', function(event) {
@@ -459,15 +482,19 @@
 						imageViewer.findAllImage();
 						ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
 					};
+					
 					bindMsgList();
 					window.addEventListener('resize', function() {
 						ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
 					}, false);
+					//发送图片
 					var send = function(msg) {
 						record.push(msg);
 						bindMsgList();
 						toRobot(msg.content);
 					};
+					
+					//给机器人发信息
 					var toRobot = function(info) {
 						var apiUrl = 'http://www.tuling123.com/openapi/api';
 						$.getJSON(apiUrl, {
@@ -484,7 +511,8 @@
 							bindMsgList();
 						});
 					};
-
+					
+					//没看懂这个是干啥的
 					function msgTextFocus() {
 							ui.boxMsgText.focus();
 							setTimeout(function() {
@@ -498,7 +526,7 @@
 							event.preventDefault();
 						}
 					});
-					//解决长按“发送”按钮，导致键盘关闭的问题；
+						//解决长按“发送”按钮，导致键盘关闭的问题；
 					ui.footerRight.addEventListener('touchmove', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
 							msgTextFocus();
@@ -517,6 +545,8 @@
 					//							event.preventDefault();
 					//						}
 					//					});
+					
+					
 					ui.footerRight.addEventListener('release', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
 							//showKeyboard();
@@ -552,6 +582,7 @@
 							}, 150);
 						}
 					}, false);
+					//点击相机按钮
 					ui.footerLeft.addEventListener('tap', function(event) {
 						var btnArray = [{
 							title: "拍照"
@@ -589,6 +620,8 @@
 							}
 						});
 					}, false); 
+					
+					//录音时的加载框是否显示
 					var setSoundAlertVisable=function(show){
 						if(show){
 							ui.boxSoundAlert.style.display = 'block';
@@ -632,6 +665,8 @@
 							plus.nativeUI.toast("录音时出现异常: " + e.message);
 						});
 					}, false);
+					
+					//取消录音时显示的问题
 					ui.body.addEventListener('drag', function(event) {
 						//console.log('drag');
 						if (Math.abs(event.detail.deltaY) > 50) {
@@ -652,6 +687,8 @@
 							}
 						}
 					}, false);
+					
+					//释放录音按钮触发事件  （发送，或者录音失败）
 					ui.boxMsgSound.addEventListener('release', function(event) {
 						//console.log('release');
 						if (audio_tips.classList.contains("cancel")) {
@@ -676,6 +713,8 @@
 						//console.log("start....");
 						e.preventDefault();
 					});
+					
+					//输入框 控制右侧按钮显示
 					ui.boxMsgText.addEventListener('input', function(event) {
 						ui.btnMsgType.classList[ui.boxMsgText.value == '' ? 'remove' : 'add']('mui-icon-paperplane');
 						ui.btnMsgType.setAttribute("for", ui.boxMsgText.value == '' ? '' : 'msg-text');
@@ -706,5 +745,4 @@
 			}(mui, document));
 		</script>
 	</body>
-
 </html>

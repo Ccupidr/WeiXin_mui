@@ -44,6 +44,7 @@
 		}
 	},
 	"plus": {
+
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true
@@ -175,7 +176,26 @@
 			"wechat.html": {
 				"resources": [],
 				"refer": [
-					"wechat_inner.html"
+					"wechat_inner.html",
+					"me.html"
+				],
+				"priority": 0
+			},
+			"wechat_inner.html": {
+				"resources": [],
+				"refer": [
+					"index.html"
+				],
+				"priority": 0
+			},
+			"webViewBar.html": {
+				"resources": [
+					"wechat.html"
+				],
+				"refer": [
+					"contact.html",
+					"find.html",
+					"me.html"
 				],
 				"priority": 0
 			}
